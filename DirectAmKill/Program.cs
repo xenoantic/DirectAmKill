@@ -88,6 +88,7 @@ namespace DirectAmKill
 
             IntPtr pAmsiOpenSession = IntPtr.Zero;
 
+            // Using an Ordinal 3 here as string was having an issue finding AmsiOpenSession
             ntStatus = LdrGetProcedureAddress(hModule, IntPtr.Zero, 3, out pAmsiOpenSession);
             if (ntStatus != 0)
             {
