@@ -26,6 +26,7 @@ namespace DirectAmKill
 
         [DllImport("ntdll.dll", SetLastError = true)]
         static extern void RtlInitUnicodeString(ref UNICODE_STRING DestinationString, [MarshalAs(UnmanagedType.LPWStr)] string SourceString);
+        
         [DllImport("ntdll.dll", SetLastError = true)]
         public static extern uint LdrGetProcedureAddress(IntPtr hModule, IntPtr ProcedureName, int ProcedureNumber, out IntPtr pFunction);
 
@@ -92,7 +93,7 @@ namespace DirectAmKill
             ntStatus = LdrGetProcedureAddress(hModule, IntPtr.Zero, 3, out pAmsiOpenSession);
             if (ntStatus != 0)
             {
-                Console.WriteLine("Failed to find AmsiOpenSession function");
+                Console.WriteLine("Failed to find AmsiOpenSession function: {0}", ntStatus);
                 LdrUnloadDll(hModule);
                 NtClose(hProcess);
                 return;
@@ -147,7 +148,6 @@ namespace DirectAmKill
             }
         }
     }
-
 }
 
 
